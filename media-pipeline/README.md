@@ -368,3 +368,13 @@ This project was built collaboratively with Claude (Anthropic) as a mentoring/pa
 **Bugs introduced by AI and how they were fixed:**
 - See the `ensureAlpha` bug above — caught by actually compiling the code rather than trusting it by inspection, and fixed before delivery.
 - An overly aggressive screenshot-detection default (see above) was caught by manually reasoning through the false-positive rate before accepting the heuristic, not by a test failure — a reminder that heuristic thresholds need human judgment, not just working code.
+## Testing Results
+
+### Image 1
+![Testing Result 1](screenshots/testing_result_image1.png)
+
+### Image 2
+![Testing Result 2](screenshots/testing_result_image2.png)
+
+### Image 3
+![Testing Result 3](screenshots/testing_result_image3.png)
