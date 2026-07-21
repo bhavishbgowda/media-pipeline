@@ -1,0 +1,17 @@
+{
+  "name": "media-pipeline-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix media-pipeline run dev",
+    "dev:worker": "npm --prefix media-pipeline run dev:worker",
+    "build": "npm --prefix media-pipeline run build",
+    "start": "npm --prefix media-pipeline run start",
+    "start:migrate": "npm --prefix media-pipeline run start:migrate",
+    "start:worker": "npm --prefix media-pipeline run start:worker",
+    "prisma:generate": "npm --prefix media-pipeline run prisma:generate",
+    "prisma:migrate": "npm --prefix media-pipeline run prisma:migrate",
+    "prisma:deploy": "npm --prefix media-pipeline run prisma:deploy",
+    "lint": "npm --prefix media-pipeline run lint"
+  }
+}

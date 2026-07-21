@@ -1,0 +1,51 @@
+# Render Blueprint Configuration (render.yaml)
+# Use this file for 1-click deployment of the entire Media Pipeline stack on Render.
+# Documentation: https://render.com/docs/blueprint-spec
+
+services:
+  # 1. Primary API Web Service (with embedded worker option enabled)
+  - type: web
+    name: media-pipeline-api
+    env: node
+    plan: free
+    region: singapore # Options: oregon, frankfurt, singapore, ohio
+    buildCommand: npm install && npm run build && npx prisma generate
+    startCommand: npm run start:migrate
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: media-pipeline-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: media-pipeline-redis
+          property: connectionString
+      - key: EMBED_WORKER
+        value: "true"
+      - key: UPLOAD_DIR
+        value: "./uploads"
+      - key: MAX_FILE_SIZE_MB
+        value: "10"
+      - key: QUEUE_MAX_ATTEMPTS
+        value: "3"
+      - key: QUEUE_BACKOFF_MS
+        value: "2000"
+
+  # 2. Managed Redis Service (Key-Value Store for BullMQ Queue)
+  - type: redis
+    name: media-pipeline-redis
+    plan: free
+    region: singapore
+    ipAllowList: [] # Access allowed only from services within your Render account
+
+databases:
+  # 3. PostgreSQL Database Instance
+  - name: media-pipeline-db
+    databaseName: media_pipeline
+    user: media_user
+    plan: free
+    region: singapore

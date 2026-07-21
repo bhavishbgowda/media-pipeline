@@ -1,0 +1,81 @@
+// Prisma schema for the Intelligent Media Processing Pipeline
+// Design notes (see README "Database Design" for full rationale):
+// - Upload and Analysis are split into two tables (1:1) so upload metadata
+//   (always present) is separate from analysis output (only present once
+//   a job completes). This keeps the "pending" row lightweight and makes
+//   it trivial to re-run analysis in the future without touching Upload.
+// - resultJson stores the full raw analyzer output for forward-compatibility:
+//   new checks can be added without a migration; structured columns exist
+//   for the fields we know we need to query/filter on today.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UploadStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+model Upload {
+  id            String       @id @default(uuid())
+  filename      String
+  filepath      String
+  mimeType      String
+  sizeBytes     Int
+  hash          String
+  status        UploadStatus @default(PENDING)
+  failureReason String?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  analysis Analysis?
+
+  @@index([hash])
+  @@index([status])
+}
+
+model Analysis {
+  id       String @id @default(uuid())
+  uploadId String @unique
+  upload   Upload @relation(fields: [uploadId], references: [id], onDelete: Cascade)
+
+  // Blur detection (variance of Laplacian, sharp-based approximation)
+  blurScore     Float?
+  blurThreshold Float?
+  blurPassed    Boolean?
+
+  // Brightness analysis
+  brightnessAverage Float?
+  brightnessStatus  String?
+  brightnessPassed  Boolean?
+
+  // Duplicate detection
+  isDuplicate   Boolean?
+  duplicateOfId String?
+
+  // Indian number plate OCR validation
+  vehicleNumberRaw   String?
+  vehicleNumberValid Boolean?
+  ocrConfidence      Float?
+
+  // Screenshot / photo-of-photo heuristic
+  screenshotSuspected  Boolean?
+  screenshotConfidence Float?
+
+  // Tamper / re-encoding heuristic
+  tamperSuspected  Boolean?
+  tamperConfidence Float?
+
+  // Full raw analyzer output (all check results, versioned, extensible)
+  resultJson  Json?
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+}
