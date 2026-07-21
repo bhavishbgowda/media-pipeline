@@ -371,10 +371,10 @@ This project was built collaboratively with Claude (Anthropic) as a mentoring/pa
 ## Testing Results
 
 ### Image 1
-![Testing Result 1](./screenshots/testing_result_image1.png)
+![Testing Result 1](./src/screenshots/testing_result_image1.png)
 
 ### Image 2
-![Testing Result 2](./screenshots/testing_result_image2.png)
+![Testing Result 2](./src/screenshots/testing_result_image2.png)
 
 ### Image 3
-![Testing Result 3](./screenshots/testing_result_image3.png)
+![Testing Result 3](./src/screenshots/testing_result_image3.png)
