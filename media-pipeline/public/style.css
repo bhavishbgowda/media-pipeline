@@ -1,0 +1,159 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:#0f172a;
+    color:#fff;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* Background */
+
+.bg-blur,
+.bg-blur2{
+    position:fixed;
+    border-radius:50%;
+    filter:blur(120px);
+    z-index:-1;
+}
+
+.bg-blur{
+    width:350px;
+    height:350px;
+    background:#4f46e5;
+    top:-80px;
+    left:-80px;
+}
+
+.bg-blur2{
+    width:350px;
+    height:350px;
+    background:#06b6d4;
+    bottom:-80px;
+    right:-80px;
+}
+
+/* Hero */
+
+.hero h1{
+    font-weight:800;
+}
+
+.hero p{
+    color:#cbd5e1;
+}
+
+.badge{
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.2);
+}
+
+/* Glass Card */
+
+.glass-card{
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:24px;
+    padding:40px;
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+}
+
+/* Upload Box */
+
+#dropArea{
+    display:block;
+    padding:70px 30px;
+    border:2px dashed rgba(255,255,255,.25);
+    border-radius:20px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+#dropArea:hover{
+    border-color:#4f46e5;
+    background:rgba(79,70,229,.08);
+}
+
+#dropArea i{
+    color:#4f46e5;
+}
+
+/* Button */
+
+.btn-primary{
+    background:#4f46e5;
+    border:none;
+    border-radius:50px;
+    transition:.3s;
+}
+
+.btn-primary:hover{
+    background:#6366f1;
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(79,70,229,.4);
+}
+
+/* Preview */
+
+#preview{
+    border-radius:16px;
+    width:100%;
+    object-fit:cover;
+    margin-top:30px;
+}
+
+/* Result Cards */
+
+.result-card{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:18px;
+    padding:25px;
+    transition:.3s;
+    height:100%;
+}
+
+.result-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 35px rgba(0,0,0,.3);
+}
+
+.result-card h5{
+    color:#94a3b8;
+}
+
+.result-card h3{
+    margin-top:12px;
+    font-weight:700;
+}
+
+/* Loading */
+
+.spinner-border{
+    width:4rem;
+    height:4rem;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+    .glass-card{
+        padding:25px;
+    }
+
+    #dropArea{
+        padding:45px 20px;
+    }
+
+    .hero h1{
+        font-size:2.2rem;
+    }
+
+}
