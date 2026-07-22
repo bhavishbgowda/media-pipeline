@@ -23,6 +23,7 @@ RUN npx prisma generate
 
 COPY tsconfig.json ./
 COPY src ./src
+COPY public ./public      # <-- ADD THIS LINE
 
 RUN npm run build
 
@@ -44,6 +45,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/public ./public   # <-- ADD THIS LINE
 COPY package*.json ./
 
 RUN mkdir -p uploads logs
